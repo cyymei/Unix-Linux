@@ -17,13 +17,17 @@ int main() {
     argline = 0;
     while (argline < ARGLEN) {
         printf("Arg[%d]: ", argline);
-        if(fgets(argbuf, ARGLEN, stdin) != NULL && *argbuf != "\n") {
+        if(fgets(argbuf, ARGLEN, stdin) != NULL && *argbuf != '\n') {
             arglist[argline] = make_string(argbuf);
-            printf("%s\n", arglist[argline]);
+            printf("%s\n", argbuf);
             argline++;
         } else {
             if (argline > 0) {
                 arglist[argline] = NULL;
+                int i;
+                for (i = 0; i < argline; i++) {
+                    printf("arg[%d]%s\n", i, arglist[i]);
+                }
                 execute_(arglist);
             }
         }
@@ -35,13 +39,13 @@ int main() {
 }
 
 char* make_string(char* buf) {
-    buf[strlen(buf) - 1] = '\0';
+    buf[strlen(buf)] = '\0';
     return buf;
 }
 
 void execute_(char* arglist[]) {
     execvp(arglist[0], arglist);
-    perror("execute failed!");
+    perror("execute failed");
     exit(1);
 }
 
