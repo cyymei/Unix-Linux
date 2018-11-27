@@ -25,7 +25,7 @@ int main() {
             if (argline > 0) {
                 arglist[argline] = NULL;
                 int i;
-                for (i = 0; i < argline; i++) {
+                for (i = 0; i <= argline; i++) {
                     printf("arg[%d]%s\n", i, arglist[i]);
                 }
                 execute_(arglist);
@@ -39,8 +39,18 @@ int main() {
 }
 
 char* make_string(char* buf) {
-    buf[strlen(buf)] = '\0';
-    return buf;
+    char* cp;
+    cp = (char*)malloc(strlen(buf) * sizeof(char));
+    if (cp == NULL) {
+        perror("memory allocate failed!");
+        exit(1);
+    }
+    if (buf[strlen(buf) - 1] == '\n') {
+        printf("have n\n");
+        buf[strlen(buf) - 1] = '\0';
+    }
+    strcpy(cp, buf);
+    return cp;
 }
 
 void execute_(char* arglist[]) {
