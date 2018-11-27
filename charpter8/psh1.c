@@ -19,15 +19,10 @@ int main() {
         printf("Arg[%d]: ", argline);
         if(fgets(argbuf, ARGLEN, stdin) != NULL && *argbuf != '\n') {
             arglist[argline] = make_string(argbuf);
-            printf("%s\n", argbuf);
             argline++;
         } else {
             if (argline > 0) {
                 arglist[argline] = NULL;
-                int i;
-                for (i = 0; i <= argline; i++) {
-                    printf("arg[%d]%s\n", i, arglist[i]);
-                }
                 execute_(arglist);
             }
         }
@@ -46,7 +41,6 @@ char* make_string(char* buf) {
         exit(1);
     }
     if (buf[strlen(buf) - 1] == '\n') {
-        printf("have n\n");
         buf[strlen(buf) - 1] = '\0';
     }
     strcpy(cp, buf);
