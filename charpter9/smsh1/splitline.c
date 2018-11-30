@@ -12,7 +12,10 @@ bool is_delim(char c);
 int main() {
     char* lines;
     lines = next_cmd(stdin);
-    printf("%s\n", lines);
+    char** arg = split_line(lines);
+    while(arg != NULL) {
+        printf("%s\n", *arg);
+    }
     return 0;
 }
 
@@ -62,7 +65,7 @@ char** split_line(char* line) {
     char** args;
     char* cp;
     int argpos;
-    char singarg[BUFSIZE];
+    char* singarg;
     int sigpos;
     int argspos;
 
@@ -74,7 +77,7 @@ char** split_line(char* line) {
     sigpos  = 0;
     argspos = 0;
     *args   = (char*)malloc(BUFSIZE * sizeof(char));
-    //singarg = (char*)malloc(BUFSIZE * sizeof(char));
+    singarg = (char*)malloc(BUFSIZE * sizeof(char));
 
     while(cp != NULL) {
         if(is_delim(*cp)) {
@@ -88,8 +91,7 @@ char** split_line(char* line) {
         if (*cp = '\0')
             break;
         singarg[sigpos++] = *cp;
-
     }
-
+    args[argpos] = NULL;
     return args;
 }
