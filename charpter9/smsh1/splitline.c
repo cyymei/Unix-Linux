@@ -84,14 +84,14 @@ char** split_line(char* line) {
             if (sigpos == 0) {
                 cp++;
             } else {
-                args[argpos++] = singarg;
+                //args[argpos++] = singarg;
                 sigpos = 0;
             }
         }
         if (*cp = '\0')
             break;
-        singarg[sigpos++] = *cp;
+        //singarg[sigpos++] = *cp;
     }
-    args[argpos] = NULL;
-    return args;
+    //args[argpos] = NULL;
+    return NULL;
 }
