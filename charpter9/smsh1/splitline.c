@@ -4,20 +4,9 @@
 #include <stdbool.h>
 
 #define BUFSIZE 200
+#define SINGBUF 15
 
-char* next_cmd(FILE* fp);
-char** split_line(char* line);
 bool is_delim(char c);
-
-int main() {
-    char* lines;
-    lines = next_cmd(stdin);
-    char** arg = split_line(lines);
-    while(arg != NULL) {
-        printf("%s\n", *arg);
-    }
-    return 0;
-}
 
 char* next_cmd(FILE* fp) {
     int   sapce;
@@ -31,7 +20,7 @@ char* next_cmd(FILE* fp) {
     while((c = getc(fp)) != EOF) {
         if (pos + 1 >= sapce) {
             if (sapce == 0) {
-                buf = (char*)malloc(BUFSIZE * sizeof(char));
+                buf = malloc(BUFSIZE * sizeof(char));
             } else {
                 buf = realloc(buf, (BUFSIZE + sapce) * sizeof(char));
             }
@@ -49,9 +38,7 @@ char* next_cmd(FILE* fp) {
 
     if (c == EOF || pos == 0)
         return NULL;
-
     buf[pos] = '\0';
-
     return buf;
 }
 
@@ -69,29 +56,32 @@ char** split_line(char* line) {
     int sigpos;
     int argspos;
 
-
-    if (line == NULL)
-        return NULL;
-
     cp      = line;
     sigpos  = 0;
-    argspos = 0;
-    *args   = (char*)malloc(BUFSIZE * sizeof(char));
-    singarg = (char*)malloc(BUFSIZE * sizeof(char));
+    argpos = 0;
+    args   = malloc(BUFSIZE * sizeof(char));
+    singarg = (char*)malloc(SINGBUF * sizeof(char));
 
     while(cp != NULL) {
-        if(is_delim(*cp)) {
+        while(is_delim(*cp)) {
             if (sigpos == 0) {
                 cp++;
             } else {
-                //args[argpos++] = singarg;
+                args[argpos++] = singarg;
+                singarg = (char*)malloc(SINGBUF * sizeof(char));
                 sigpos = 0;
             }
         }
-        if (*cp = '\0')
+        if (*cp == '\0') {
+            args[argpos++] = singarg;
             break;
-        //singarg[sigpos++] = *cp;
+        }
+        singarg[sigpos++] = *cp;
+        cp++;
     }
-    //args[argpos] = NULL;
-    return NULL;
+
+    args[argpos] = NULL;
+
+    return args;
 }
+
