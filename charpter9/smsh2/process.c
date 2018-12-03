@@ -1,10 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <smsh2.h>
 
-int is_control_command(char* s);
-int do_control_command(char** args);
-int ok_to_excute();
 
 int process(char** args) {
     if (args == NULL)
