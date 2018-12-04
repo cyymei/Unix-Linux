@@ -34,7 +34,7 @@ bool is_control_command(char* s) {
     bool ret = false;
     if (strcmp(s, "if") == 0 || strcmp(s, "then") == 0 ||
         strcmp(s, "fi") == 0)
-        ret = false;
+        ret = true;
 
     return ret;
 }
@@ -43,7 +43,7 @@ int do_control_command(char** args) {
     if (args == NULL)
         return false;
 
-    int ret;
+    int   ret;
     char* cmd;
 
     ret = -1;
@@ -89,5 +89,8 @@ bool ok_to_excute() {
         ret = 1;
     else if (if_state == THEN_BLOCK && if_result == FAIL)
         ret = 0;
+    else if (if_state == NEUTRAL)
+        ret = 1;
+    return ret == 1 ? true : false;
 }
 

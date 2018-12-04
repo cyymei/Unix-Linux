@@ -50,11 +50,11 @@ bool is_delim(char c) {
 
 char** split_line(char* line) {
     char** args;
-    char* cp;
-    int argpos;
-    char* singarg;
-    int sigpos;
-    int argspos;
+    char*  cp;
+    int    argpos;
+    char*  singarg;
+    int    sigpos;
+    int    argspos;
 
     cp      = line;
     sigpos  = 0;
