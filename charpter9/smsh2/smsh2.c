@@ -13,11 +13,11 @@ int main() {
         if((args = split_line(cmdline)) != NULL) {
             result = process(args);
         }
-        while(*arg != NULL) {
-            char** temp = arg;
+        while(*args != NULL) {
+            char** temp = args;
             temp++;
-            free(*arg);
-            arg = temp;
+            free(*args);
+            args = temp;
         }
     }
     return 0;

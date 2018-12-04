@@ -73,7 +73,7 @@ int do_control_command(char** args) {
             ret = 0;
         }
     } else {
-        fatal("internal error processing:", cmd, 2);
+        perror("internal error processing:");
         ret = -1;
     }
 
