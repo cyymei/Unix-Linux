@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
+#include <smsh2.h>
 
 enum state {
     NEUTRAL,
@@ -78,7 +80,7 @@ int do_control_command(char** args) {
     return ret;
 }
 
-int ok_to_excute() {
+bool ok_to_excute() {
     int ret;
 
     if (if_state == WANT_THEN) {
