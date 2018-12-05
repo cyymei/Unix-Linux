@@ -48,13 +48,14 @@ int do_control_command(char** args) {
 
     ret = -1;
     cmd = args[0];
-
+    printf("state%d, result%d\n", if_state, if_result);
     if(strcmp(cmd, "if") == 0) {
         if(if_state != NEUTRAL)
             ret = syn_error("if unexpected!");
         else {
             last_state = process(args + 1);
-            if_result = (last_state == 0 ? SUCCESS : FAIL);
+            printf("last_state: %d\n", last_state);
+            if_result = (last_state == 0 ? FAIL : SUCCESS);
             if_state = WANT_THEN;
             ret = 0;
         }
@@ -91,6 +92,7 @@ bool ok_to_excute() {
         ret = 0;
     else if (if_state == NEUTRAL)
         ret = 1;
+    printf("ok_to_excute: %d\n", ret);
     return ret == 1 ? true : false;
 }
 

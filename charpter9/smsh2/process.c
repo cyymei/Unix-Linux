@@ -9,7 +9,6 @@ int process(char** args) {
         return 0;
 
     int ret = 0;
-    printf("%s\n", args[0]);
     if (is_control_command(args[0])) {
 
             printf("is_control_command\n");
