@@ -21,6 +21,7 @@ char* next_cmd(FILE* fp) {
         if (pos + 1 >= sapce) {
             if (sapce == 0) {
                 buf = malloc(BUFSIZE * sizeof(char));
+                memset(buf, 0, sizeof(buf));
             } else {
                 buf = realloc(buf, (BUFSIZE + sapce) * sizeof(char));
             }
@@ -67,8 +68,10 @@ char** split_line(char* line) {
             if (sigpos == 0) {
                 cp++;
             } else {
+                singarg[sigpos++] = '\0';
                 args[argpos++] = singarg;
                 singarg = (char*)malloc(SINGBUF * sizeof(char));
+                memset(singarg, 0, sizeof(singarg));
                 sigpos = 0;
             }
         }
@@ -79,6 +82,7 @@ char** split_line(char* line) {
         singarg[sigpos++] = *cp;
         cp++;
     }
+    free(line);
 
     args[argpos] = NULL;
 
