@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <smsh2.h>
+#include "smsh2.h"
 
 
 int main() {
@@ -13,12 +13,14 @@ int main() {
         if((args = split_line(cmdline)) != NULL) {
             result = process(args);
         }
+        char** temp_arg = args;
         while(*args != NULL) {
             char** temp = args;
             temp++;
             free(*args);
             args = temp;
         }
+        free(temp_arg);
     }
     return 0;
 }
