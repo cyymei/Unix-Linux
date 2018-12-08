@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 bool is_control_command(char* s);
 int do_control_command(char** args);

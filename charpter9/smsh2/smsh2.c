@@ -13,6 +13,9 @@ int main() {
         if((args = split_line(cmdline)) != NULL) {
             result = process(args);
         }
+        if (builtin_commands(args, result)) {
+
+        }
         char** temp_arg = args;
         while(*args != NULL) {
             char** temp = args;
